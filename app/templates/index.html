@@ -13,150 +13,149 @@
   <body>
   
   <div class='container'>
-	<br><br>
+    <br><br>
     <h1>Users DB</h1>
-	<hr>
-	<br>
-	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_user">Add User</button>
-	
-	<!-- Modal for adding a new user -->
-	<div class="modal fade" id="add_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <div class="modal-body">
-			<form action='/insert/' method='post'>
-			  <div class="form-group row">
-				<label class="col-sm-6 col-form-label">Name</label>
-				<div class="col-sm-6">
-				  <input class="form-control" name="name" required>
-				</div>
-			  </div>
-			  <div class="form-group row">
-				<label class="col-sm-6 col-form-label">Age</label>
-				<div class="col-sm-6">
-				  <input type='number' class="form-control" name="age" required>
-				</div>
-			  </div>
-			  <div class="form-group row">
-				<label class="col-sm-6 col-form-label">Hobby</label>
-				<div class="col-sm-6">
-				  <input class="form-control" name="hobby" required>
-				</div>
-			  </div>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-success">Submit</button>
-		  </div>
-		  </form>
-		</div>
-	  </div>
-	</div>
-
-<br><br>
-<!-- Users Table -->
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Age</th>
-	  <th scope="col">Hobby</th>
-	  <th scope="col" colspan='2' style='text-align:center'>Action</th>
-    </tr>
-  </thead>
-  <tbody>
+    <hr>
+    <br>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_user">Add User</button>
     
-		{% for i in data %}
-		<tr>
-			<th scope="row">{{loop.index}}</th>
-			<td>{{i['name']}}</td>
-			<td>{{i['age']}}</td>
-			<td>{{i['hobby']}}</td>
-			<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit_user_{{i['id']}}">Edit</button></td>
-			
-			<!-- Modal for editing a user -->
-			<div class="modal fade" id="edit_user_{{i['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-				<div class="modal-content">
-				  <div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					  <span aria-hidden="true">&times;</span>
-					</button>
-				  </div>
-				  <form action="/update/{{i['id']}}/" method='post'>
-				  <div class="modal-body">
-					  <div class="form-group row">
-						<label class="col-sm-6 col-form-label">Name</label>
-						<div class="col-sm-6">
-						  <input class="form-control" name="name" value="{{i['name']}}" required>
-						</div>
-					  </div>
-					  <div class="form-group row">
-						<label class="col-sm-6 col-form-label">Age</label>
-						<div class="col-sm-6">
-						  <input type='number' class="form-control" name="age" value="{{i['age']}}" required>
-						</div>
-					  </div>
-					  <div class="form-group row">
-						<label class="col-sm-6 col-form-label">Hobby</label>
-						<div class="col-sm-6">
-						  <input class="form-control" name="hobby" value="{{i['hobby']}}" required>
-						</div>
-					  </div>
-				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-success">Update</button>
-				  </div>
-				  </form>
-				</div>
-			  </div>
-			</div>
-			<!-- End Modal -->
-			
-			<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_user_{{i['id']}}">Delete</button></td>
-			
-			<!-- Modal for deleting a user -->
-				<div class="modal fade" id="delete_user_{{i['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog" role="document">
-					<div class="modal-content">
-					  <div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						  <span aria-hidden="true">&times;</span>
-						</button>
-					  </div>
-					  <form action="/delete/{{i['id']}}/" method='post'>
-					  <div class="modal-body">
-						  <div class="form-group row">
-							<label class="col-sm-12 col-form-label">Do you want to delete the user <span style='font-weight:bold;color:red'>{{i['name']}}</span>?</label>				
-						  </div>			
-					  </div>
-					  <div class="modal-footer">
-						<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-danger">Delete</button>
-					  </div>
-					  </form>
-					</div>
-				  </div>
-				</div>
-			<!-- End Modal -->
-			
-		</tr>	
-		{% endfor %}
-	
-  </tbody>
-</table>
-	
-</div>	
+    <!-- Modal for adding a new user -->
+    <div class="modal fade" id="add_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action='/insert' method='post'>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Name</label>
+                <div class="col-sm-6">
+                  <input class="form-control" name="name" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Age</label>
+                <div class="col-sm-6">
+                  <input type='number' class="form-control" name="age" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Hobby</label>
+                <div class="col-sm-6">
+                  <input class="form-control" name="hobby" required>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+    <!-- Users Table -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Age</th>
+          <th scope="col">Hobby</th>
+          <th scope="col" colspan='2' style='text-align:center'>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ i[1] }}</td>
+          <td>{{ i[2] }}</td>
+          <td>{{ i[3] }}</td>
+          <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit_user_{{ i['id'] }}">Edit</button></td>
+          
+          <!-- Modal for editing a user -->
+          <div class="modal fade" id="edit_user_{{ i['id'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/update/{{ i['id'] }}" method='post'>
+                <div class="modal-body">
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label">Name</label>
+                      <div class="col-sm-6">
+                        <input class="form-control" name="name" value="{{ i['name'] }}" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label">Age</label>
+                      <div class="col-sm-6">
+                        <input type='number' class="form-control" name="age" value="{{ i['age'] }}" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label">Hobby</label>
+                      <div class="col-sm-6">
+                        <input class="form-control" name="hobby" value="{{ i['hobby'] }}" required>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Update</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End Modal -->
+          
+          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_user_{{ i['id'] }}">Delete</button></td>
+          
+          <!-- Modal for deleting a user -->
+          <div class="modal fade" id="delete_user_{{ i['id'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/delete/{{ i['id'] }}" method='post'>
+                <div class="modal-body">
+                    <div class="form-group row">
+                      <label class="col-sm-12 col-form-label">Do you want to delete the user <span style='font-weight:bold;color:red'>{{ i['name'] }}</span>?</label>        
+                    </div>      
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End Modal -->
+          
+        </tr>  
+        {% endfor %}
+    
+      </tbody>
+    </table>
+    
+  </div>  
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

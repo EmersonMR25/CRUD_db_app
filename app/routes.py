@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .db_setup import get_user, add_user, update_user, delete_user
+from .db_setup import get_users, add_user, update_user, delete_user
 
 # Create a blueprint for the main routes
 main_blueprint = Blueprint('main', __name__)
@@ -8,10 +8,10 @@ main_blueprint = Blueprint('main', __name__)
 @main_blueprint.route("/")
 def index():
     # Fetch all users from the database
-    data = get_user()
+    data = get_users()
     return render_template("index.html", data=data)
 
-@main_blueprint.route("/insert", methods=['POST'])
+@main_blueprint.route("/insert/", methods=['POST'])
 def insert():
     # Insert the user into the database
     if request.method == "POST":
@@ -24,7 +24,7 @@ def insert():
     
     return redirect(url_for("main.index"))
 
-@main_blueprint.route("/update", methods=['POST'])
+@main_blueprint.route("/update/", methods=['POST'])
 def update():
     # Update information of the user
     if request.method == "POST":
@@ -38,7 +38,7 @@ def update():
 
     return redirect(url_for("main.index"))
 
-@main_blueprint.route("/delete", methods=['POST'])
+@main_blueprint.route("/delete/", methods=['POST'])
 def delete():
     # Delete the user from the database
     if request.method == "POST":
