@@ -13,66 +13,77 @@ def close_db_connection(connection):
     connection.close()
     logging.info("Connection closed with database.")
 
-# Create the database
+# Create the database and user table
 def create_user_table():
-    connection = get_db_connection()
-    cursor = connection.cursor()
-    cursor.execute(
-        '''CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            age INTEGER NOT NULL,
-            hobby TEXT NOT NULL
-            )'''
-    )
-    logging.info("Table created or already exists.")
-    connection.commit()
-    close_db_connection(connection)
+    try:
+        with get_db_connection() as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                '''CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    age INTEGER NOT NULL,
+                    hobby TEXT NOT NULL
+                    )'''
+            )
+            logging.info("Table created or already exists.")
+            connection.commit()
+    except Exception as e:
+        logging.error(f"Error creating table: {e}")
 
-# Create a new user and add it to the database    
+# Add a new user to the database
 def add_user(name, age, hobby):
-    connection = get_db_connection()
-    cursor = connection.cursor()
-    cursor.execute(
-        '''INSERT INTO users (name, age, hobby) VALUES (?, ?, ?)''', 
-        (name, age, hobby)
-    )
-    logging.info("User added.")
-    connection.commit()
-    close_db_connection(connection)
+    try:
+        with get_db_connection() as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                '''INSERT INTO users (name, age, hobby) VALUES (?, ?, ?)''', 
+                (name, age, hobby)
+            )
+            logging.info("User added.")
+            connection.commit()
+    except Exception as e:
+        logging.error(f"Error adding user: {e}")
 
-# Update info of a user
+# Update user information
 def update_user(id, name, age, hobby):
-    connection = get_db_connection()
-    cursor = connection.cursor()
-    cursor.execute(
-        '''UPDATE users
-           SET name = ?, age = ?, hobby = ?
-           WHERE id = ?''', 
-        (name, age, hobby, id)
-    )
-    logging.info("User updated.")
-    connection.commit()
-    close_db_connection(connection)
+    try:
+        with get_db_connection() as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                '''UPDATE users
+                   SET name = ?, age = ?, hobby = ?
+                   WHERE id = ?''', 
+                (name, age, hobby, id)
+            )
+            logging.info("User updated.")
+            connection.commit()
+    except Exception as e:
+        logging.error(f"Error updating user: {e}")
 
-# Delete a user
+# Delete a user from the database
 def delete_user(id):
-    connection = get_db_connection()
-    cursor = connection.cursor()
-    cursor.execute(
-        '''DELETE FROM users WHERE id = ?''', 
-        (id,)
-    )
-    logging.info("User deleted.")
-    connection.commit()
-    close_db_connection(connection)
+    try:
+        with get_db_connection() as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                '''DELETE FROM users WHERE id = ?''', 
+                (id,)
+            )
+            logging.info("User deleted.")
+            connection.commit()
+    except Exception as e:
+        logging.error(f"Error deleting user: {e}")
 
-# Get all users from the db
+# Get all users from the database
 def get_users():
-    connection = get_db_connection()
-    cursor = connection.cursor()
-    cursor.execute('''SELECT * FROM users''')
-    user_list = cursor.fetchall()
-    logging.info("Users fetched.")
-    close_db_connection(connection)
-    return user_list
+    try:
+        with get_db_connection() as connection:
+            cursor = connection.cursor()
+            cursor.execute('''SELECT * FROM users''')
+            user_list = cursor.fetchall()
+            logging.info("Users fetched.")
+            return user_list
+    except Exception as e:
+        logging.error(f"Error fetching users: {e}")
+        return []

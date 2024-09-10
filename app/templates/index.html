@@ -30,7 +30,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action='/insert' method='post'>
+            <form action='/insert/' method='post'>
               <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Name</label>
                 <div class="col-sm-6">
@@ -78,10 +78,10 @@
           <td>{{ i[1] }}</td>
           <td>{{ i[2] }}</td>
           <td>{{ i[3] }}</td>
-          <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit_user_{{ i['id'] }}">Edit</button></td>
+          <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit_user_{{ i[0] }}">Edit</button></td>
           
           <!-- Modal for editing a user -->
-          <div class="modal fade" id="edit_user_{{ i['id'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="edit_user_{{ i[0] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -90,24 +90,24 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="/update/{{ i['id'] }}" method='post'>
+                <form action="/update/{{ i[0] }}/" method='post'>
                 <div class="modal-body">
                     <div class="form-group row">
                       <label class="col-sm-6 col-form-label">Name</label>
                       <div class="col-sm-6">
-                        <input class="form-control" name="name" value="{{ i['name'] }}" required>
+                        <input class="form-control" name="name" value="{{ i[1] }}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-6 col-form-label">Age</label>
                       <div class="col-sm-6">
-                        <input type='number' class="form-control" name="age" value="{{ i['age'] }}" required>
+                        <input type='number' class="form-control" name="age" value="{{ i[2] }}" required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-6 col-form-label">Hobby</label>
                       <div class="col-sm-6">
-                        <input class="form-control" name="hobby" value="{{ i['hobby'] }}" required>
+                        <input class="form-control" name="hobby" value="{{ i[3] }}" required>
                       </div>
                     </div>
                 </div>
@@ -121,10 +121,10 @@
           </div>
           <!-- End Modal -->
           
-          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_user_{{ i['id'] }}">Delete</button></td>
+          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_user_{{ i[0] }}">Delete</button></td>
           
           <!-- Modal for deleting a user -->
-          <div class="modal fade" id="delete_user_{{ i['id'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="delete_user_{{ i[0] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -133,10 +133,10 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="/delete/{{ i['id'] }}" method='post'>
+                <form action="/delete/{{ i[0] }}/" method='post'>
                 <div class="modal-body">
                     <div class="form-group row">
-                      <label class="col-sm-12 col-form-label">Do you want to delete the user <span style='font-weight:bold;color:red'>{{ i['name'] }}</span>?</label>        
+                      <label class="col-sm-12 col-form-label">Do you want to delete the user <span style='font-weight:bold;color:red'>{{ i[1] }}</span>?</label>        
                     </div>      
                 </div>
                 <div class="modal-footer">
