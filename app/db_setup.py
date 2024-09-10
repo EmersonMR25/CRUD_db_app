@@ -1,42 +1,102 @@
 import sqlite3
 
+# The following methods will implement CRUD operations for the database
+
+# Create the database
 def create_user_table():
-    try:
-        with sqlite3.connect('app/users.db') as connection:
-            cursor = connection.cursor()
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS user (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL,
-                    age INTEGER NOT NULL,
-                    hobby TEXT NOT NULL
-                )
-            ''')
-            print("Table created successfully")
-    except sqlite3.Error as e:
-        print(f"An error occurred: {e}")
-
+    # Create the connection with the db
+    connection = sqlite3.connec('app/users.db')
+    # Create a cursor object
+    cursor = connection.cursor()
+    # Execute the SQL command
+    cursor.execute(
+        '''CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            age NOT NULL,
+            hobby TEXT NOT NULL
+            )'''
+    )
+    # Commit the changes
+    connection.commit()
+    #Close the connection
+    connection.close()
+    
+# Create a new user and add it to the database    
 def add_user(name, age, hobby):
-    try:
-        with sqlite3.connect('app/users.db') as connection:
-            cursor = connection.cursor()
-            cursor.execute('''
-                INSERT INTO user (name, age, hobby)
-                VALUES (?, ?, ?, ?)
-            ''', (name, age, hobby))
-            connection.commit()
-            print("User added successfully")
-    except sqlite3.Error as e:
-        print(f"An error occurred: {e}")
+    # Create the connection with the db
+    connection = sqlite3.connec('app/users.db')
+    # Create a cursor object
+    cursor = connection.cursor()
+    # Execute the SQL command
+    cursor.execute(
+        # We use the ? placeholders in order to safeguard against SQL injections,
+        # hence these are values that will be passed dynamically
+        '''INSERT INTO user (name, age, hobby) VALUES (?, ?, ?, ?)
+        ''', (name, age, hobby)
+    )
+    # Commit the changes
+    connection.commit()
+    #Close the connection
+    connection.close()
+    
+# Update info of an user
+def update_user(id, name, age, hobby):
+    # Create the connection with the db
+    connection = sqlite3.connec('app/users.db')
+    # Create a cursor object
+    cursor = connection.cursor()
+    # Execute the SQL command
+    cursor.execute(
+        '''UPDATE users
+           SET name = ?, age = ?, hobby = ?
+           WHERE id = ?
+        ''', (id, name, age, hobby)
+    )
+    # Commit the changes
+    connection.commit()
+    # Close the connection
+    connection.close()
 
-def get_users():
-    try:
-        with sqlite3.connect('app/users.db') as connection:
-            cursor = connection.cursor()
-            cursor.execute('SELECT * FROM user')
-            users = cursor.fetchall()
-            return users
-    except sqlite3.Error as e:
-        print(f"An error occurred: {e}")
-        return []
+# Delete an user
+def delete_user(id):
+    # Create the connection with the db
+    connection = sqlite3.connec('app/users.db')
+    # Create a cursor object
+    cursor = connection.cursor()
+    # Execute the SQL command
+    cursor.execute(
+        '''DELTE FROM users
+           WHERE (id) VALUES (?)
+        ''', (id)
+    )
+    # Commit the changes
+    connection.commit()
+    # Close the connection
+    connection.close()
+    
+
+# Get all users from the db
+def get_user():
+    # Create the connection with the db
+    connection = sqlite3.connec('app/users.db')
+    # Create a cursor object
+    cursor = connection.cursor()
+    # Execute the SQL command
+    cursor.execute(
+        # We use the ? placeholders in order to safeguard against SQL injections,
+        # hence these are values that will be passed dynamically
+        '''SELECT *
+           FROM users
+        '''
+    )
+    # Get the fetched info
+    user_list = cursor.fetchall()
+    # Commit the changes
+    connection.commit()
+    # Close the connection
+    connection.close()
+    # Return the list
+    return user_list
+
 
