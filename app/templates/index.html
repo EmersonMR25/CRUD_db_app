@@ -1,7 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management</title>
+    <link rel="stylesheet" href="app/static/css/style.css" />
+  </head>
   <body>
-    <h1>My First Heading</h1>
-    <p>My first paragraph.</p>
+    <div class="container">
+      <h1>User Management</h1>
+
+      <!-- Form to Add a New User -->
+      <form
+        action="{{ url_for('main.add_user_route') }}"
+        method="POST"
+        class="user-form"
+      >
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required />
+
+        <label for="hobby">Hobby:</label>
+        <input type="text" id="hobby" name="hobby" required />
+
+        <button type="submit">Add User</button>
+      </form>
+
+      <!-- Display Users -->
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Hobby</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[3] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
