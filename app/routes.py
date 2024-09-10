@@ -1,24 +1,50 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from .db_setup import get_user, add_user, update_user, delete_user
 
 # Create a blueprint for the main routes
 main_blueprint = Blueprint('main', __name__)
 
-# Create a connection and reder the main page
+# Create a connection and render the main page
 @main_blueprint.route("/")
 def index():
-    return render_template("index.html")
+    # Fetch all users from the database
+    data = get_user()
+    return render_template("index.html", data=data)
 
-# Insert a new user into the database
-@main_blueprint.route()
-def ():
-    return redirect(url_for("index"))
+@main_blueprint.route("/insert", methods=['POST'])
+def insert():
+    # Insert the user into the database
+    if request.method == "POST":
+        name = request.form.get("name")
+        age = int(request.form.get("age"))
+        hobby = request.form.get("hobby")
+        
+        # Add the user to the database
+        add_user(name, age, hobby)
+    
+    return redirect(url_for("main.index"))
 
-# Update information fron the database
-@main_blueprint.route()
-def ():
-    return redirect(url_for("index"))
+@main_blueprint.route("/update", methods=['POST'])
+def update():
+    # Update information of the user
+    if request.method == "POST":
+        id = int(request.form.get("id"))
+        name = request.form.get("name")
+        age = int(request.form.get("age"))
+        hobby = request.form.get("hobby")
+        
+        # Update the user's information in the database
+        update_user(id, name, age, hobby)
 
-# Remove information from the database
-@main_blueprint.route()
-def ():
-    return redirect(url_for("index"))
+    return redirect(url_for("main.index"))
+
+@main_blueprint.route("/delete", methods=['POST'])
+def delete():
+    # Delete the user from the database
+    if request.method == "POST":
+        id = int(request.form.get("id"))
+        
+        # Remove the user from the database
+        delete_user(id)
+    
+    return redirect(url_for("main.index"))
