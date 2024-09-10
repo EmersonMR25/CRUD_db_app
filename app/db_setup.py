@@ -4,6 +4,7 @@ import sqlite3
 def create_user_table():
     # Create the connection with the db
     connection = sqlite3.connect('app/users.db')
+    print("Connection stablished with database,")
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
@@ -15,15 +16,18 @@ def create_user_table():
             hobby TEXT NOT NULL
             )'''
     )
+    print("Table created.")
     # Commit the changes
     connection.commit()
     #Close the connection
     connection.close()
+    print("Connection closed with database,")
     
 # Create a new user and add it to the database    
 def add_user(name, age, hobby):
     # Create the connection with the db
     connection = sqlite3.connect('app/users.db')
+    print("Connection stablished with database,")
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
@@ -33,15 +37,19 @@ def add_user(name, age, hobby):
         '''INSERT INTO user (name, age, hobby) VALUES (?, ?, ?)
         ''', (name, age, hobby)
     )
+    print("User added.")
     # Commit the changes
     connection.commit()
     #Close the connection
     connection.close()
+    print("Connection closed with database,")
+    
     
 # Update info of an user
 def update_user(id, name, age, hobby):
     # Create the connection with the db
     connection = sqlite3.connect('app/users.db')
+    print("Connection stablished with database,")
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
@@ -51,15 +59,18 @@ def update_user(id, name, age, hobby):
            WHERE id = ?
         ''', (id, name, age, hobby)
     )
+    print("User updated.")
     # Commit the changes
     connection.commit()
     # Close the connection
     connection.close()
+    print("Connection closed with database,")
 
 # Delete an user
 def delete_user(id):
     # Create the connection with the db
     connection = sqlite3.connect('app/users.db')
+    print("Connection stablished with database,")
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
@@ -68,16 +79,19 @@ def delete_user(id):
            WHERE (id) VALUES (?)
         ''', (id)
     )
+    print("User updated.")
     # Commit the changes
     connection.commit()
     # Close the connection
     connection.close()
+    print("Connection closed with database,")
     
 
 # Get all users from the db
 def get_user():
     # Create the connection with the db
     connection = sqlite3.connect('app/users.db')
+    print("Connection stablished with database,")
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
@@ -90,10 +104,12 @@ def get_user():
     )
     # Get the fetched info
     user_list = cursor.fetchall()
+    print("Users table fetched.")
     # Commit the changes
     connection.commit()
     # Close the connection
     connection.close()
+    print("Connection closed with database,")
     # Return the list
     return user_list
 
