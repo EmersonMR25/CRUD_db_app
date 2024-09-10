@@ -1,5 +1,4 @@
 from flask import Flask
-from .db_setup import create_user_table
 
 def create_app():
     app = Flask(__name__)

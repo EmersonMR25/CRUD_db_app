@@ -1,11 +1,9 @@
 import sqlite3
 
-# The following methods will implement CRUD operations for the database
-
 # Create the database
 def create_user_table():
     # Create the connection with the db
-    connection = sqlite3.connec('app/users.db')
+    connection = sqlite3.connect('app/users.db')
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
@@ -13,7 +11,7 @@ def create_user_table():
         '''CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            age NOT NULL,
+            age INTEGER NOT NULL,
             hobby TEXT NOT NULL
             )'''
     )
@@ -25,14 +23,14 @@ def create_user_table():
 # Create a new user and add it to the database    
 def add_user(name, age, hobby):
     # Create the connection with the db
-    connection = sqlite3.connec('app/users.db')
+    connection = sqlite3.connect('app/users.db')
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
     cursor.execute(
         # We use the ? placeholders in order to safeguard against SQL injections,
         # hence these are values that will be passed dynamically
-        '''INSERT INTO user (name, age, hobby) VALUES (?, ?, ?, ?)
+        '''INSERT INTO user (name, age, hobby) VALUES (?, ?, ?)
         ''', (name, age, hobby)
     )
     # Commit the changes
@@ -43,7 +41,7 @@ def add_user(name, age, hobby):
 # Update info of an user
 def update_user(id, name, age, hobby):
     # Create the connection with the db
-    connection = sqlite3.connec('app/users.db')
+    connection = sqlite3.connect('app/users.db')
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
@@ -61,7 +59,7 @@ def update_user(id, name, age, hobby):
 # Delete an user
 def delete_user(id):
     # Create the connection with the db
-    connection = sqlite3.connec('app/users.db')
+    connection = sqlite3.connect('app/users.db')
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
@@ -79,7 +77,7 @@ def delete_user(id):
 # Get all users from the db
 def get_user():
     # Create the connection with the db
-    connection = sqlite3.connec('app/users.db')
+    connection = sqlite3.connect('app/users.db')
     # Create a cursor object
     cursor = connection.cursor()
     # Execute the SQL command
