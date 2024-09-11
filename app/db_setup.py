@@ -5,11 +5,14 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 def get_db_connection():
+    # Create a connection with the database
     connection = sqlite3.connect('app/users.db')
     logging.info("Connection established with database.")
+    # Return the connection object
     return connection
 
 def close_db_connection(connection):
+    # Close the connection
     connection.close()
     logging.info("Connection closed with database.")
 
@@ -31,7 +34,7 @@ def create_user_table():
     except Exception as e:
         logging.error(f"Error creating table: {e}")
 
-# Add a new user to the database
+# Add a new user to the database. Use the placeholders "?" to avoide SQL injections.
 def add_user(name, age, hobby):
     try:
         with get_db_connection() as connection:
@@ -45,7 +48,7 @@ def add_user(name, age, hobby):
     except Exception as e:
         logging.error(f"Error adding user: {e}")
 
-# Update user information
+# Update user information. Use the placeholder "?" to avoid SQL injections.
 def update_user(id, name, age, hobby):
     try:
         with get_db_connection() as connection:
@@ -67,7 +70,8 @@ def delete_user(id):
         with get_db_connection() as connection:
             cursor = connection.cursor()
             cursor.execute(
-                '''DELETE FROM users WHERE id = ?''', 
+                '''DELETE FROM users 
+                   WHERE id = ?''', 
                 (id,)
             )
             logging.info("User deleted.")
@@ -80,7 +84,8 @@ def get_users():
     try:
         with get_db_connection() as connection:
             cursor = connection.cursor()
-            cursor.execute('''SELECT * FROM users''')
+            cursor.execute('''SELECT * 
+                              FROM users''')
             user_list = cursor.fetchall()
             logging.info("Users fetched.")
             return user_list
