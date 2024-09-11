@@ -28,4 +28,4 @@ A simple web application that allows users to add, edit, and delete user records
 
 ## Credits
 
-This application was developed by Emerson Romero. The frontend is styled with Bootstrap and acquired from Sudu2411's Github page, and the backend logic is powered by Flask and SQLite.
+This application was developed by Emerson Romero. The frontend is styled with Bootstrap and acquired from Sudu2411's Github page and modified by Chatgpt to meet my requirements, and the backend logic is powered by Flask and SQLite.
